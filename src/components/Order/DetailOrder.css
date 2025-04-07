@@ -1,0 +1,104 @@
+/* Chia modal thành 2 cột */
+.modal-grid {
+  display: flex;
+  gap: 50px;
+  justify-content: space-between;
+}
+
+.modal-column {
+  flex: 1;
+}
+
+/* Hiển thị danh sách sản phẩm đẹp hơn */
+.items-container {
+  max-height: 250px; /* Giới hạn chiều cao */
+  overflow-y: auto; /* Cuộn khi tràn */
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Mỗi món ăn */
+.dish-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Căn chỉnh thông tin đơn hàng */
+.order-info,
+.total-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.order-info label,
+.total-amount label {
+  font-weight: bold;
+  min-width: 120px;
+  margin-right: 15px;
+}
+
+.order-info p,
+.total-amount p {
+  margin: 0;
+  flex: 1;
+  text-align: right;
+}
+
+/* Modal chung */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 800px;
+  max-width: 80%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Hiệu ứng mở popup */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Nút đóng */
+.close-modal {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  border: none;
+  background: red;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.close-modal:hover {
+  background: darkred;
+}

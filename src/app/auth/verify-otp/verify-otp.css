@@ -1,0 +1,92 @@
+/* Container */
+.verify-otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("/assets/icons/shipper-bg.png") no-repeat center center;
+  background-size: cover;
+}
+
+/* OTP Card */
+.verify-otp-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 400px;
+}
+
+.verify-otp-card h3 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.verify-otp-card p {
+  font-size: 16px;
+  color: #746c6c;
+  margin-bottom: 20px;
+}
+
+/* OTP Input Group */
+.otp-input-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.otp-input {
+  width: 45px;
+  height: 50px;
+  text-align: center;
+  font-size: 24px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.otp-input:focus {
+  border-color: #7d3cff;
+  box-shadow: 0 0 8px rgba(125, 60, 255, 0.5);
+}
+
+/* Verify Button */
+.verify-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  background-color: #7d3cff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.verify-btn:hover {
+  background-color: #5a27d8;
+}
+
+/* Resend Options */
+.resend-options {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #333;
+}
+
+.resend-options a {
+  color: #7d3cff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.resend-options a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
