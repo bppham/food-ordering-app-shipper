@@ -106,6 +106,16 @@ const PersonalInfo = () => {
               <span className="heading">SĐT: </span>
               <span className="info-detail">{shipper.phonenumber}</span>
             </div>
+
+            <div className="info-item">
+              <span className="heading">Loại xe: </span>
+              <span className="info-detail">{shipper.vehicle.name}</span>
+            </div>
+
+            <div className="info-item">
+              <span className="heading">Số xe: </span>
+              <span className="info-detail">{shipper.vehicle.number}</span>
+            </div>
           </div>
           <div className="action">
             <button onClick={handleContinueChangeInfo}>Chỉnh sửa</button>

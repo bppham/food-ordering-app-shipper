@@ -6,10 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import "./register.css";
 
-import {
-  registerShipper,
-  uploadAvatarImage,
-} from "../../../api/auth";
+import { registerShipper, uploadAvatarImage } from "../../../api/auth";
 
 const page = () => {
   const [shipper, setShipper] = useState({
@@ -19,6 +16,10 @@ const page = () => {
     gender: "male",
     password: "",
     avatar: null,
+    vehicle: {
+      name: "",
+      number: "",
+    },
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -72,8 +73,12 @@ const page = () => {
       await registerShipper(shipper, urlAvatar);
       console.log("✅ Đăng ký thành công!");
 
-      Swal.fire("Thành công!", "Đăng ký thành công, hãy chờ tài khoản được duyệt!", "success").then(() => {
-        router.push("/shipper/auth/login");
+      Swal.fire(
+        "Thành công!",
+        "Đăng ký thành công, hãy chờ tài khoản được duyệt!",
+        "success"
+      ).then(() => {
+        router.push("/auth/login");
       });
     } catch (error) {
       console.log("❌ Lỗi khi đăng ký:", error);
@@ -218,14 +223,49 @@ const page = () => {
                   </div>
                 </div>
               </div>
+              <div className="row">
+                <div className="item">
+                  <label>Loại xem:</label>
+                  <input
+                    type="text"
+                    placeholder="Nhập loại xem..."
+                    value={shipper.vehicle.name}
+                    onChange={(e) =>
+                      setShipper((prev) => ({
+                        ...prev,
+                        vehicle: {
+                          ...prev.vehicle,
+                          name: e.target.value,
+                        },
+                      }))
+                    }
+                    required
+                  />
+                </div>
+                <div className="item">
+                  <label>Số xe:</label>
+                  <input
+                    type="text"
+                    placeholder="Nhập số xe..."
+                    value={shipper.vehicle.number}
+                    onChange={(e) =>
+                      setShipper((prev) => ({
+                        ...prev,
+                        vehicle: {
+                          ...prev.vehicle,
+                          number: e.target.value,
+                        },
+                      }))
+                    }
+                    required
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
           <div className="action-row">
-            <button
-              type="button"
-              onClick={() => router.push("/auth/login")}
-            >
+            <button type="button" onClick={() => router.push("/auth/login")}>
               Trở lại Đăng nhập
             </button>
             <button type="submit">Xác nhận</button>

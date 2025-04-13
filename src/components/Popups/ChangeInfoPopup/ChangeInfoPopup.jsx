@@ -9,6 +9,10 @@ const ChangeInfoPopup = ({ onClose, fetchData, shipper }) => {
     phonenumber: shipper.phonenumber,
     gender: shipper.gender,
     avatar: shipper.avatar,
+    vehicle: {
+      name: shipper.vehicle.name,
+      number: shipper.vehicle.number,
+    },
   });
 
   const [image, setImage] = useState(null);
@@ -25,6 +29,17 @@ const ChangeInfoPopup = ({ onClose, fetchData, shipper }) => {
     }
 
     setUpdatedInfo((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleVehicleChange = (e) => {
+    const { name, value } = e.target;
+    setUpdatedInfo((prev) => ({
+      ...prev,
+      vehicle: {
+        ...prev.vehicle,
+        [name]: value,
+      },
+    }));
   };
 
   const handleImageChange = (event) => {
@@ -103,6 +118,14 @@ const ChangeInfoPopup = ({ onClose, fetchData, shipper }) => {
                 <div className="item">
                   <span>Email:</span>
                   <input type="text" readOnly value={shipper.email} />
+                </div>
+                <div className="item">
+                  <span>Loại xe:</span>
+                  <input type="text" name="name" value={updatedInfo.vehicle.name} onChange={handleVehicleChange}/>
+                </div>
+                <div className="item">
+                  <span>Số xe:</span>
+                  <input type="text" name="number" value={updatedInfo.vehicle.number} onChange={handleVehicleChange}/>
                 </div>
               </div>
             </div>

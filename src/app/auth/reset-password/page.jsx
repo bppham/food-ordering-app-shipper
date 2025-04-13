@@ -46,7 +46,6 @@ const page = () => {
       <ToastContainer />
       <div className="reset-password-card">
         <h2>Đổi mật khẩu</h2>
-
           <div className="input-group">
             <label>Mật khẩu mới</label>
             <div className="password-wrapper">

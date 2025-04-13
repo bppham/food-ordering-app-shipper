@@ -86,9 +86,6 @@ const page = () => {
           <button type="submit" className="login-btn">
             Đăng Nhập
           </button>
-          <button type="button" className="google-btn">
-            Đăng nhập với Google
-          </button>
         </form>
       </div>
     </div>
