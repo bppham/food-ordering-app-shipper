@@ -25,12 +25,6 @@ const Step1Pickup = ({ order, status, onStatusUpdate, onShowDetail }) => {
         <p>
           <strong>Địa chỉ:</strong> {order.store.address.full_address}
         </p>
-        <p>
-          <strong>Id:</strong> {order._id}
-        </p>
-        <p>
-          <strong>Status:</strong> {order.status}
-        </p>
         <div className="action">
           <button
             className="confirm"

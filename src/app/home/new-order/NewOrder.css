@@ -51,10 +51,15 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    font-size: 15px;
 }
 
 .new-order-address-start img, .new-order-address-destination img{
     width: 15px;
+}
+
+.new-order-address-start span, .new-order-address-destination span{
+    width: 80px;
 }
 
 .new-order-action{

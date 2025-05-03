@@ -114,3 +114,15 @@
   flex: 1;
   display: flex;
 }
+
+.total-amount {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 2px solid #ccc;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: #333;
+  font-family: serif;
+}

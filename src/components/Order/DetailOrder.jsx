@@ -7,15 +7,14 @@ const DetailOrder = ({ order, onClose }) => {
   // Tính tổng tiền đơn hàng
   const totalAmount = order.items.reduce((sum, item) => {
     const itemPrice = item.dish.price * item.quantity;
-    const toppingsPrice = item.toppings.reduce(
-      (tSum, topping) => tSum + topping.price,
-      0
-    );
+    const toppingsPrice =
+      item.toppings.reduce((tSum, topping) => tSum + topping.price, 0) * item.quantity;
     return sum + itemPrice + toppingsPrice;
   }, 0);
+  
 
   return (
-    <div className="modal-overlay">
+    <div className="detail-order-container">
       <div className="modal-content">
         <h2>Chi tiết đơn hàng</h2>
 
@@ -53,7 +52,12 @@ const DetailOrder = ({ order, onClose }) => {
                     </p>
                     {item.toppings.length > 0 && (
                       <p>
-                        Toppings: {item.toppings.map((t) => t.name).join(", ")}
+                        Toppings:&nbsp;
+                        {item.toppings
+                          .map(
+                            (t) => `${t.name} (+${t.price.toLocaleString()}đ)`
+                          )
+                          .join(", ")}
                       </p>
                     )}
                   </div>

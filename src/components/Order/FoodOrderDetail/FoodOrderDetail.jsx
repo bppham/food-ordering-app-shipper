@@ -6,6 +6,14 @@ const FoodOrderDetail = ({ order, onClose, loading }) => {
     return <p>Đang tải chi tiết đơn hàng...</p>; // Hiển thị loading khi API đang chạy
   }
 
+  const totalAmount = order.items.reduce((sum, item) => {
+    const dishTotal = item.dish.price * item.quantity;
+    const toppingsTotal =
+      item.toppings.reduce((tSum, topping) => tSum + topping.price, 0) * item.quantity;
+    return sum + dishTotal + toppingsTotal;
+  }, 0);
+  
+
   if (!order) return null;
 
   return (
@@ -49,6 +57,10 @@ const FoodOrderDetail = ({ order, onClose, loading }) => {
               </div>
             </div>
           ))}
+          <div className="total-amount">
+            <strong>Tổng tiền đơn hàng:</strong>
+            <p>{totalAmount.toLocaleString()} đồng</p>
+          </div>
         </div>
         <button onClick={onClose}>Đóng</button>
       </div>

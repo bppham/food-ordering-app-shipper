@@ -1,82 +1,34 @@
-/* Chia modal thành 2 cột */
-.modal-grid {
-  display: flex;
-  gap: 50px;
-  justify-content: space-between;
-}
-
-.modal-column {
-  flex: 1;
-}
-
-/* Hiển thị danh sách sản phẩm đẹp hơn */
-.items-container {
-  max-height: 250px; /* Giới hạn chiều cao */
-  overflow-y: auto; /* Cuộn khi tràn */
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-/* Mỗi món ăn */
-.dish-item {
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
-}
-
-/* Căn chỉnh thông tin đơn hàng */
-.order-info,
-.total-amount {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.order-info label,
-.total-amount label {
-  font-weight: bold;
-  min-width: 120px;
-  margin-right: 15px;
-}
-
-.order-info p,
-.total-amount p {
-  margin: 0;
-  flex: 1;
-  text-align: right;
-}
-
-/* Modal chung */
-.modal-overlay {
+/* Overlay mờ toàn màn hình */
+.detail-order-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  width: 800px;
-  max-width: 80%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+/* Hộp nội dung chính của modal */
+.detail-order-container .modal-content {
+  background: #fff;
+  padding: 24px 32px;
+  border-radius: 12px;
+  width: 850px;
+  max-width: 90%;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   animation: fadeIn 0.3s ease-in-out;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-/* Hiệu ứng mở popup */
+/* Hiệu ứng mở modal */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.95);
   }
   to {
     opacity: 1;
@@ -84,21 +36,106 @@
   }
 }
 
-/* Nút đóng */
-.close-modal {
-  display: block;
-  width: 100%;
-  padding: 10px;
-  margin-top: 20px;
-  border: none;
-  background: red;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
+/* Tiêu đề */
+.detail-order-container .modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
   text-align: center;
+  color: #333;
+}
+
+/* Bố cục 2 cột */
+.detail-order-container .modal-grid {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 24px;
+}
+
+.detail-order-container .modal-column {
+  flex: 1;
+}
+
+/* Thông tin đơn hàng */
+.detail-order-container .order-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 8px;
+}
+
+.detail-order-container .order-info label {
+  font-weight: 600;
+  color: #555;
+  min-width: 110px;
+}
+
+.detail-order-container .order-info p {
+  margin: 0;
+  text-align: right;
+  color: #222;
+}
+
+/* Danh sách sản phẩm */
+.detail-order-container .items-container {
+  max-height: 260px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.detail-order-container .dish-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-order-container .dish-item p {
+  margin: 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.detail-order-container .dish-item p:last-child {
+  font-style: italic;
+  color: #666;
+}
+
+.detail-order-container .dish-item strong {
+  font-weight: 600;
+  color: #111;
+}
+
+/* Tổng tiền */
+.detail-order-container .total-amount {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 2px solid #ccc;
+  font-weight: 600;
+  color: #000;
+}
+
+/* Nút đóng */
+.detail-order-container .close-modal {
+  width: 100%;
+  padding: 12px;
+  margin-top: 24px;
+  border: none;
+  background: #e74c3c;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
   transition: background 0.2s;
 }
 
-.close-modal:hover {
-  background: darkred;
+.detail-order-container .close-modal:hover {
+  background: #c0392b;
 }

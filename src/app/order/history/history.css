@@ -59,6 +59,11 @@
   width: 15px;
 }
 
+.history-order-address-start span,
+.history-order-address-destination span {
+  width: 80px;
+}
+
 .history-order-action {
   margin-top: 10px;
   display: flex;

@@ -50,7 +50,7 @@ const page = () => {
       <ToastContainer />
       <div className="login-card">
         <h2>Đăng Nhập</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleLogin} autoComplete="off">
           <div className="input-group">
             <label>Email</label>
             <input
@@ -58,7 +58,9 @@ const page = () => {
               placeholder="Nhập email..."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              autocomplete="off"
               required
+              name = "no-email-fill"
             />
           </div>
           <div className="input-group">
