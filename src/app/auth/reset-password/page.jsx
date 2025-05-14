@@ -26,13 +26,15 @@ const page = () => {
   const handleSubmit = async () => {
     if (password === "" || confirmedPassword === "") {
       toast.error("Vui lòng nhập đủ thông tin");
+      return;
     } else if (password.length < 6) {
       toast.error("Mật khẩu phải có ít nhất 6 ký tự");
+      return;
     } else if (password !== confirmedPassword) {
       toast.error("Mật khẩu nhập lại không chính xác");
+      return;
     }
     try {
-      
       await resetPasswordWithEmail(email, password);
       toast.success("Đổi mật khẩu thành công!");
       router.push("/auth/login")
