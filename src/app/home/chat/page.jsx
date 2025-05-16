@@ -1,32 +1,47 @@
 "use client";
-import { useSelector } from "react-redux";
-import ChatItem from "../../../components/Message/ChatItem";
-import React, { useEffect } from "react";
-import { useGetAllChatsQuery } from "../../../redux/feature/Chat/chatApi";
-import { useGetAllMessagesQuery } from "../../../redux/feature/Message/messageApi";
+import "./chat.css";
+import ChatItem from "../../../components/Message/ChatItem/ChatItem";
+import React, { useEffect, useState } from "react";
+import { getAllChats } from "../../../api/chat";
 
-const page = () => {
-  const chatState = useSelector((state) => state.chat);
-  const { allChats } = chatState;
-  const shipper = localStorage.getItem("user");
+const Page = () => {
+  const [allChats, setAllChats] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const { refetch: refetchAllChats } = useGetAllChatsQuery();
+  const fetchChats = async () => {
+    try {
+      const data = await getAllChats();
+      setAllChats(data);
+    } catch (err) {
+      console.error("❌ Lỗi khi lấy danh sách chat:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
+    const shipper = localStorage.getItem("user");
     if (shipper) {
-      refetchAllChats();
+      fetchChats();
     }
-  }, [shipper, refetchAllChats]);
+  }, []);
 
   return (
-    <div className="pt-[30px] pb-[100px] ] lg:w-[60%] md:w-[80%] md:mx-auto md:pt-[100px] md:mt-[20px] md:px-0">
-
-      <div className="p-[10px] flex flex-col gap-0 md:gap-[10px]">
-        {allChats &&
-          allChats.map((chat, index) => <ChatItem chat={chat} key={index} />)}
+    <div className="chat-page-wrapper">
+      <h1>Trò chuyện</h1>
+      <div className="chat-page-content">
+        {loading ? (
+          <p>Đang tải...</p>
+        ) : allChats && allChats.length > 0 ? (
+          allChats.map((chat, index) => (
+            <ChatItem key={index} chat={chat} refetchAllChats={fetchChats} />
+          ))
+        ) : (
+          <p>Không có cuộc trò chuyện nào.</p>
+        )}
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;

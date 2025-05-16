@@ -36,7 +36,7 @@ const Sidebar = () => {
             <Link href="/home/chat" className="link">
               <li
                 className={`sidebar-item ${
-                  activeItem === "/home/new-order" ? "active" : ""
+                  activeItem === "/home/chat" ? "active" : ""
                 }`}
                 onClick={() => handleActive("/home/chat")}
               >

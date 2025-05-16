@@ -3,14 +3,14 @@ import axios from "axios";
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
 
 const getAuthHeaders = () => {
-  const token = localStorage.getItem("token"); // Lấy token từ localStorage
+  const token = localStorage.getItem("token");
   return token ? { Authorization: `Bearer ${token}` } : {};
 };
 
 export const getFinishedOrders = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/api/v1/order/finished`, {
-      headers: getAuthHeaders(), // Thêm headers chứa token
+      headers: getAuthHeaders(), 
     });
     return response.data;
   } catch (error) {
@@ -88,9 +88,12 @@ export const getDeliveredOrders = async (page = 1, limit = 5) => {
 
 export const getShipperOrders = async (shipperId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/v1/order/shipper/${shipperId}`, {
-      headers: getAuthHeaders(),
-    });
+    const response = await axios.get(
+      `${BASE_URL}/api/v1/order/shipper/${shipperId}`,
+      {
+        headers: getAuthHeaders(),
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("❌ Lỗi khi lấy số đơn hàng của shipper:", error);

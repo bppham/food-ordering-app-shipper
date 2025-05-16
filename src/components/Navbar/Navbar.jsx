@@ -10,25 +10,25 @@ const Navbar = () => {
   const [avatar, setAvatar] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [orderCount, setOrderCount] = useState(0);
-  const [shipperId, setShipperId] = useState();
+  const [shipperId, setShipperId] = useState("");
 
   useEffect(() => {
-    const init = async () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      if (user && user.id) {
-        setShipperId(user.id);
-        const response = await getShipper(user.id);
-        setAvatar(response.avatar.url);
-        fetchOrderCount();
-      } else {
-        console.error("❌ Không tìm thấy thông tin user trong localStorage!");
-      }
-    };
-
-    init();
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.id) {
+      setShipperId(user.id); // chỉ set, không gọi hàm nào khác ở đây
+    } else {
+      console.error("❌ Không tìm thấy thông tin user trong localStorage!");
+    }
   }, []);
 
-  const fetchInfo = async () => {
+  useEffect(() => {
+    if (shipperId) {
+      fetchInfo(shipperId);
+      fetchOrderCount(shipperId);
+    }
+  }, [shipperId]);
+
+  const fetchInfo = async (shipperId) => {
     try {
       if (!shipperId) {
         console.error("❌ Không tìm thấy shipperId!");
@@ -41,12 +41,10 @@ const Navbar = () => {
     }
   };
 
-  const fetchOrderCount = async () => {
+  const fetchOrderCount = async (id) => {
     try {
-      if (!shipperId) return;
-      const response = await getFinishedOrders();
+      const response = await getFinishedOrders(id); // nếu API cần id
       setOrderCount(response.count);
-      console.log(response);
     } catch (error) {
       console.error("❌ Lỗi khi lấy số lượng đơn hàng:", error);
     }
@@ -61,9 +59,18 @@ const Navbar = () => {
   return (
     <div className="navbar">
       <div className="navbar-container">
-        <div className="navbar-left">
-          <span className="logo">Shipper</span>
-        </div>
+        <Link href="/home/" className="link">
+          <div className="navbar-left">
+            <Image
+              src="/assets/logo.png"
+              width={45}
+              height={45}
+              alt="Home Icon"
+            />
+            <span className="logo">Shipper</span>
+          </div>
+        </Link>
+
         <div className="navbar-right">
           <Link href="/home/new-order" className="link">
             <div className="navbar-icons">

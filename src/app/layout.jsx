@@ -15,17 +15,13 @@ export default function RootLayout({ children }) {
   const isAuthPage = pathname.startsWith("/auth");
 
   const content = (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <SocketProvider>
-          {!isAuthPage && <Navbar />}
-          <div className="shipper-container">
-            {!isAuthPage && <Sidebar />}
-            <div className="shipper-container-content">{children}</div>
-          </div>
-        </SocketProvider>
-      </PersistGate>
-    </Provider>
+    <SocketProvider>
+      {!isAuthPage && <Navbar />}
+      <div className="shipper-container">
+        {!isAuthPage && <Sidebar />}
+        <div className="shipper-container-content">{children}</div>
+      </div>
+    </SocketProvider>
   );
 
   return (

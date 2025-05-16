@@ -9,10 +9,13 @@ import axios from "axios";
 import {
   haversineDistance,
   calculateTravelTime,
+  formatTravelTime,
+  formatDistance,
 } from "../../../../utils/functions";
 import { useSocket } from "../../../../context/SocketContext";
 import { useSearchParams } from "next/navigation";
 import { getOrderDetail } from "../../../../api/order";
+import "./see-route-customer.css";
 
 const shipperIcon = new L.Icon({
   iconUrl: "https://cdn-icons-png.flaticon.com/128/9561/9561688.png",
@@ -31,8 +34,12 @@ const Page = () => {
   const orderId = searchParams.get("orderId");
   const [orderDetail, setOrderDetail] = useState();
 
-  const [shipperLocation, setShipperLocation] = useState([10.762622, 106.660172]);
-  const [customerLocation, setCustomerLocation] = useState([10.762622, 106.660172]);
+  const [shipperLocation, setShipperLocation] = useState([
+    10.762622, 106.660172,
+  ]);
+  const [customerLocation, setCustomerLocation] = useState([
+    10.762622, 106.660172,
+  ]);
   const [routeToCustomer, setRouteToCustomer] = useState([]);
   const [distanceShipperToCustomer, setDistanceShipperToCustomer] = useState(0);
   const [timeShipperToCustomer, setTimeShipperToCustomer] = useState(0);
@@ -69,9 +76,15 @@ const Page = () => {
     if ("geolocation" in navigator) {
       const watchId = navigator.geolocation.watchPosition(
         (position) => {
-          const newLocation = [position.coords.latitude, position.coords.longitude];
+          const newLocation = [
+            position.coords.latitude,
+            position.coords.longitude,
+          ];
           setShipperLocation(newLocation);
-          socket.emit("sendLocation", { id: orderId, data: { lat: newLocation[0], lon: newLocation[1] } });
+          socket.emit("sendLocation", {
+            id: orderId,
+            data: { lat: newLocation[0], lon: newLocation[1] },
+          });
         },
         (error) => console.error("Lỗi lấy vị trí:", error),
         { enableHighAccuracy: true, maximumAge: 0 }
@@ -115,24 +128,20 @@ const Page = () => {
   };
 
   return (
-    <div className="pt-[85px] pb-[140px] md:pt-[75px] md:mt-[20px] md:px-0 bg-[#fff] md:bg-[#f9f9f9]">
-      <div className="bg-[#fff] lg:w-[60%] md:w-[80%] md:mx-auto md:border md:rounded-[10px] md:shadow-md md:p-[20px]">
-        <div className="fixed top-0 right-0 left-0 z-10 flex items-center gap-2 bg-white h-[85px] px-4 md:static">
-          <Link href="/orders/order/123" className="relative w-[30px] pt-[30px]">
-            <Image src="/assets/arrow_left_long.png" alt="" layout="fill" objectFit="contain" />
-          </Link>
-          <h3 className="text-[#4A4B4D] text-[24px] font-bold">Theo dõi vị trí đơn hàng</h3>
+    <div className="page-wrapper">
+      <div className="container">
+        <div className="header-bar">
+          <h3>Theo dõi vị trí đơn hàng</h3>
         </div>
-
         <div>
-          <h3>Khoảng cách và thời gian dự kiến:</h3>
           <p>
-            🚀 Shipper ➝ Customer: {distanceShipperToCustomer.toFixed(2)} km (~{" "}
-            {timeShipperToCustomer.toFixed(2)} giờ)
+            🚀 Vị trí của bạn ➝ Khách hàng:{" "}
+            {formatDistance(distanceShipperToCustomer)} (~{" "}
+            {formatTravelTime(timeShipperToCustomer)})
           </p>
         </div>
 
-        <div className="w-full h-[500px] mt-4 relative z-0">
+        <div className="map-wrapper">
           {shipperLocation && (
             <MapContainer
               center={shipperLocation}
