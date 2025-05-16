@@ -1,5 +1,5 @@
 import { apiSlice } from "../api/apiSlice";
-import { uploadApi } from "../upload/uploadApi";
+// import { uploadApi } from "../upload/uploadApi";
 
 export const messageApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -35,9 +35,9 @@ export const messageApi = apiSlice.injectEndpoints({
         try {
           const { data: deletedMessage } = await queryFulfilled;
 
-          if (deletedMessage?.image?.filePath) {
-            dispatch(uploadApi.endpoints.deleteFile.initiate({ filePath: deletedMessage?.image?.filePath }));
-          }
+          // if (deletedMessage?.image?.filePath) {
+          //   dispatch(uploadApi.endpoints.deleteFile.initiate({ filePath: deletedMessage?.image?.filePath }));
+          // }
         } catch (error) {
           console.error(error);
         }

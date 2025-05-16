@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { getShipper } from "../../api/shipper";
@@ -10,12 +10,22 @@ const Navbar = () => {
   const [avatar, setAvatar] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
   const [orderCount, setOrderCount] = useState(0);
-  const user = JSON.parse(localStorage.getItem("user"));
-  const shipperId = user?.id;
+  const [shipperId, setShipperId] = useState();
 
   useEffect(() => {
-    fetchInfo();
-    fetchOrderCount();
+    const init = async () => {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.id) {
+        setShipperId(user.id);
+        const response = await getShipper(user.id);
+        setAvatar(response.avatar.url);
+        fetchOrderCount();
+      } else {
+        console.error("❌ Không tìm thấy thông tin user trong localStorage!");
+      }
+    };
+
+    init();
   }, []);
 
   const fetchInfo = async () => {

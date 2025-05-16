@@ -1,10 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { resetUserState } from "../user/userSlice";
-import { resetUploadState } from "../upload/uploadSlice";
-import { resetNotificationState } from "../notification/notificationSlice";
-import { resetMessageState } from "../message/messageSlice";
-import { resetChatState } from "../chat/chatSlice";
-import { resetLocationState } from "../location/locationSlice";
+import { resetMessageState } from "../Message/messageSlice";
+import { resetChatState } from "../Chat/chatSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${process.env.NEXT_PUBLIC_SERVER_URI}/api/v1`,
@@ -35,12 +31,8 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
       await baseQuery("/auth/logout", api, extraOptions);
 
       // Xóa dữ liệu người dùng
-      api.dispatch(resetUserState());
-      api.dispatch(resetUploadState());
-      api.dispatch(resetNotificationState());
       api.dispatch(resetMessageState());
       api.dispatch(resetChatState());
-      api.dispatch(resetLocationState());
 
       localStorage.removeItem("userId");
       localStorage.removeItem("token");
@@ -52,7 +44,7 @@ const baseQueryWithReAuth = async (args, api, extraOptions) => {
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["Post"],
+  tagTypes: ["Cart", "Order", "Favorite"],
   endpoints: (builder) => ({}),
 });
 

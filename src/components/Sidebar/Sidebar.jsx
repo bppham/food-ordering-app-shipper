@@ -33,13 +33,23 @@ const Sidebar = () => {
                 Nhận đơn mới
               </li>
             </Link>
+            <Link href="/home/chat" className="link">
+              <li
+                className={`sidebar-item ${
+                  activeItem === "/home/new-order" ? "active" : ""
+                }`}
+                onClick={() => handleActive("/home/chat")}
+              >
+                Trò chuyện
+              </li>
+            </Link>
           </div>
         </div>
 
         <div className="sidebar-menu">
           <div className="sidebar-title">Đơn hàng</div>
           <div className="sidebar-list">
-          <Link href="/order/delivering" className="link">
+            <Link href="/order/delivering" className="link">
               <li
                 className={`sidebar-item ${
                   activeItem === "/order/delivering" ? "active" : ""
@@ -65,7 +75,7 @@ const Sidebar = () => {
         <div className="sidebar-menu">
           <div className="sidebar-title">Thu nhập</div>
           <div className="sidebar-list">
-          <Link href="/income/income-detail" className="link">
+            <Link href="/income/income-detail" className="link">
               <li
                 className={`sidebar-item ${
                   activeItem === "/income/income-detail" ? "active" : ""

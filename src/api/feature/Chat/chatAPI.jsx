@@ -1,33 +1,40 @@
 import { apiSlice } from "../api/apiSlice";
-import { setAllNotifications } from "./notificationSlice";
+import { setAllChats } from "./chatSlice";
 
-export const notificationApi = apiSlice.injectEndpoints({
+export const chatApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAllNotifications: builder.query({
+    createChat: builder.mutation({
+      query: ({ id, body }) => ({
+        url: `/chat/${id}`,
+        method: "POST",
+        body,
+        credentials: "include",
+      }),
+    }),
+    getAllChats: builder.query({
       query: () => ({
-        url: `/notification/get-all-notifications`,
+        url: `/chat/`,
         method: "GET",
         credentials: "include",
       }),
       async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          dispatch(setAllNotifications(result.data));
+          dispatch(setAllChats(result.data));
         } catch (error) {
           console.error(error);
         }
       },
     }),
-    updateNotificationStatus: builder.mutation({
+    deleteChat: builder.mutation({
       query: (id) => ({
-        url: `/notification/update-notification/${id}`,
-        method: "PUT",
+        url: `/chat/delete/${id}`,
+        method: "DELETE",
         credentials: "include",
       }),
       async onQueryStarted(_arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          dispatch(setAllNotifications(result.data));
         } catch (error) {
           console.error(error);
         }
@@ -36,4 +43,4 @@ export const notificationApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useGetAllNotificationsQuery, useUpdateNotificationStatusMutation } = notificationApi;
+export const { useCreateChatMutation, useGetAllChatsQuery, useDeleteChatMutation } = chatApi;

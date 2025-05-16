@@ -5,26 +5,32 @@ import "./globals.css";
 import Navbar from "../components/Navbar/Navbar";
 import { usePathname } from "next/navigation";
 import RequireAuth from "../components/RequireAuth";
+import { SocketProvider } from "../context/SocketContext";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "../redux/store";
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
   const isAuthPage = pathname.startsWith("/auth");
 
   const content = (
-    <>
-      {!isAuthPage && <Navbar />}
-      <div className="shipper-container">
-        {!isAuthPage && <Sidebar />}
-        <div className="shipper-container-content">{children}</div>
-      </div>
-    </>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <SocketProvider>
+          {!isAuthPage && <Navbar />}
+          <div className="shipper-container">
+            {!isAuthPage && <Sidebar />}
+            <div className="shipper-container-content">{children}</div>
+          </div>
+        </SocketProvider>
+      </PersistGate>
+    </Provider>
   );
 
   return (
     <html lang="en">
-      <body>
-        {isAuthPage ? content : <RequireAuth>{content}</RequireAuth>}
-      </body>
+      <body>{isAuthPage ? content : <RequireAuth>{content}</RequireAuth>}</body>
     </html>
   );
 }

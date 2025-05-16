@@ -92,3 +92,11 @@ button.detail-order{
 button.detail-order:hover{
   background-color: #2e7ef5 ;
 }
+
+button.chat{
+  background-color: #ff8080 ;
+}
+
+button.chat:hover{
+  background-color: #f05e5e ;
+}
