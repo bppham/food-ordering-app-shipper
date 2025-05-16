@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import {resetPasswordWithEmail} from "../../../api/auth"
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -81,4 +81,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

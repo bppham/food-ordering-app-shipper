@@ -8,7 +8,7 @@ import "./register.css";
 
 import { registerShipper, uploadAvatarImage } from "../../../api/auth";
 
-const page = () => {
+const Page = () => {
   const [shipper, setShipper] = useState({
     name: "",
     email: "",
@@ -276,4 +276,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

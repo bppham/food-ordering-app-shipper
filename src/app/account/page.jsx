@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./PersonalInfo.css";
+import "./account.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ChangePasswordPopup from "../../components/Popups/ChangePasswordPopup/ChangePasswordPopup";
@@ -8,28 +8,30 @@ import ChangeInfoPopup from "../../components/Popups/ChangeInfoPopup/ChangeInfoP
 
 import { getShipper } from "../../api/shipper";
 import { verifyOldPassword } from "../../api/auth";
-const PersonalInfo = () => {
+const Page = () => {
   const [shipper, setShipper] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const user = JSON.parse(localStorage.getItem("user"));
-  const shipperId = user?.id;
+  const [shipperId, setShipperId] = useState(null);
 
   const [oldPassword, setOldPassword] = useState("");
   const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
-    fetchInfo();
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user?.id) {
+      setShipperId(user.id);
+    }
   }, []);
 
-  const fetchInfo = async () => {
-    try {
-      if (!shipperId) {
-        console.error("❌ Không tìm thấy shipperId!");
-        return;
-      }
+  useEffect(() => {
+    if (shipperId) {
+      fetchInfo(shipperId);
+    }
+  }, [shipperId]);
 
-      const response = await getShipper(shipperId);
-      console.log(response);
+  const fetchInfo = async (id) => {
+    try {
+      const response = await getShipper(id);
       setShipper(response);
     } catch (error) {
       console.error("❌ Lỗi khi lấy thông tin shipper:", error);
@@ -140,9 +142,7 @@ const PersonalInfo = () => {
 
       {/* Show popup */}
       {showChangePasswordPopup && (
-        <ChangePasswordPopup
-          onClose={handleChangePasswordClose}
-        />
+        <ChangePasswordPopup onClose={handleChangePasswordClose} />
       )}
 
       {showChangeInfoPopup && (
@@ -168,4 +168,4 @@ const PersonalInfo = () => {
   );
 };
 
-export default PersonalInfo;
+export default Page;

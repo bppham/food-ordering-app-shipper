@@ -1,23 +1,17 @@
 import React from "react";
-import { updateOrderStatus } from "../../../api/order";
 import { useRouter } from "next/navigation";
-import {
-  useCreateChatMutation,
-  useGetAllChatsQuery,
-} from "../../../redux/feature/Chat/chatApi";
+import { updateOrderStatus } from "../../../api/order";
+import { createChat, getAllChats } from "../../../api/chat";
 
 const Step2Delivery = ({ order, status, onStatusUpdate, onShowDetail }) => {
   const isActive = status === "delivering";
-  const isDisabled = status !== "delivering"; // Chỉ bật khi ở bước "delivering"
+  const isDisabled = status !== "delivering";
   const router = useRouter();
-
-  const [createChat] = useCreateChatMutation();
-  const { refetch: refetchAllChats } = useGetAllChatsQuery();
 
   const handleConfirmPickup = async () => {
     try {
-      await updateOrderStatus(order._id, "delivered"); // Gọi API cập nhật trạng thái
-      onStatusUpdate(); // Cập nhật UI sau khi gọi API thành công
+      await updateOrderStatus(order._id, "delivered");
+      onStatusUpdate();
     } catch (error) {
       console.error("Lỗi khi cập nhật trạng thái:", error);
       alert("Không thể cập nhật trạng thái đơn hàng!");
@@ -26,25 +20,18 @@ const Step2Delivery = ({ order, status, onStatusUpdate, onShowDetail }) => {
 
   const handleChat = async (id, storeId) => {
     try {
-      const result = await createChat({ id, body: { storeId } }).unwrap();
-
+      const result = await createChat(id, { storeId });
       if (result) {
         router.push(`/home/chat/${result}`);
-        refetchAllChats();
+        await getAllChats(); // gọi lại nếu cần cập nhật danh sách chat
       }
     } catch (error) {
       console.error("Lỗi khi tạo chat:", error);
     }
   };
 
-  const handleWatchMap = async () => {
-    try {
-      router.push(
-        "/order/delivering/see-route-customer?orderId=" + order._id + ""
-      );
-    } catch (error) {
-      alert("Không thể cập nhật trạng thái đơn hàng!");
-    }
+  const handleWatchMap = () => {
+    router.push("/order/delivering/see-route-customer?orderId=" + order._id);
   };
 
   const getPaymentMethodLabel = (method) => {
@@ -63,10 +50,12 @@ const Step2Delivery = ({ order, status, onStatusUpdate, onShowDetail }) => {
       <div className="info">
         <h2>Bước 2: Mang đồ ăn cho khách</h2>
         <p>
-          <strong>Khách hàng:</strong> {order?.customerName || order?.user?.name}
+          <strong>Khách hàng:</strong>{" "}
+          {order?.customerName || order?.user?.name}
         </p>
         <p>
-          <strong>SĐT:</strong> {order?.customerPhonenumber || order?.user?.phonenumber}
+          <strong>SĐT:</strong>{" "}
+          {order?.customerPhonenumber || order?.user?.phonenumber}
         </p>
         <p>
           <strong>Địa chỉ:</strong> {order.shipLocation.address}
@@ -101,7 +90,7 @@ const Step2Delivery = ({ order, status, onStatusUpdate, onShowDetail }) => {
             className="chat"
             disabled={isDisabled}
             onClick={() => {
-              handleChat(`${order.user._id}`, null);
+              handleChat(order.user._id, null);
             }}
           >
             Nhắn tin với khách hàng

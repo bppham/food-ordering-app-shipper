@@ -66,7 +66,14 @@ const ChatItem = ({ chat, refetchAllChats }) => {
       className={`chat-item md:chat-item-md`}
     >
       <div className="chat-avatar-container">
-        <img src={avatar || ""} alt="" className="chat-avatar-img" />
+        <img
+          src={
+            avatar ||
+            "https://res.cloudinary.com/datnguyen240/image/upload/v1722168751/avatars/avatar_pnncdk.png"
+          }
+          alt="avatar"
+          className="chat-avatar-img"
+        />
       </div>
 
       <div className="chat-info">

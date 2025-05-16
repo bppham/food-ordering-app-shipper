@@ -8,16 +8,12 @@ import "./Login.css";
 
 import { login } from "../../../api/auth";
 
-const page = () => {
+const Page  = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,7 +21,6 @@ const page = () => {
 
     try {
       const data = await login(email, password);
-
       // Save token into local storage
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify({ id: data._id }));
@@ -58,7 +53,7 @@ const page = () => {
               placeholder="Nhập email..."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              autocomplete="off"
+              autoComplete="off"
               required
               name = "no-email-fill"
             />
@@ -73,12 +68,6 @@ const page = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <button
-                type="button"
-                onClick={togglePasswordVisibility}
-              >
-                {showPassword ? "👁️" : "👁️‍🗨️"}
-              </button>
             </div>
           </div>
           <div className="links">
@@ -94,4 +83,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page ;
