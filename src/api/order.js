@@ -10,7 +10,7 @@ const getAuthHeaders = () => {
 export const getFinishedOrders = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/api/v1/order/finished`, {
-      headers: getAuthHeaders(), 
+      headers: getAuthHeaders(),
     });
     return response.data;
   } catch (error) {
@@ -82,6 +82,19 @@ export const getDeliveredOrders = async (page = 1, limit = 5) => {
     return response.data;
   } catch (error) {
     console.error("❌ Lỗi khi lấy lịch sử đơn hàng:", error);
+    throw error;
+  }
+};
+
+export const getAllDeliveredOrders = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/api/v1/order/delivered`, {
+      params: { all: true },
+      headers: getAuthHeaders(),
+    });
+    return response.data;
+  } catch (error) {
+    console.error("❌ Lỗi khi lấy tất cả đơn hàng:", error);
     throw error;
   }
 };

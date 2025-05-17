@@ -55,7 +55,7 @@
 /* Khi mục đang được chọn (thêm class 'active' khi click) */
 .sidebar-item.active {
   background-color: rgb(230, 230, 250);
-  color: rgb(50, 50, 150);
+  color: #fc6011;
   font-weight: bold;
   transform: scale(1.1);
 }

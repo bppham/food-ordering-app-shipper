@@ -7,8 +7,8 @@ const ChartOrder = ({title = 'Thống kê đơn hàng', data = [], dataKey = 'va
         <h3 className="title">{title}</h3>
         <ResponsiveContainer width="90%" aspect={4 / 1}>
             <LineChart data={data}>
-                <XAxis dataKey="name" stroke='#4635B1' />
-                <Line type="monotone" dataKey={dataKey} stroke='#4635B1' />
+                <XAxis dataKey="name" stroke='#fc6011' />
+                <Line type="monotone" dataKey={dataKey} stroke='#fc6011' />
                 <Tooltip />
                 {grid && <CartesianGrid stroke='#e0dfdf' strokeDasharray="5 5" />}
                 <Legend />

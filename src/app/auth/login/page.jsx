@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -8,7 +8,7 @@ import "./Login.css";
 
 import { login } from "../../../api/auth";
 
-const Page  = () => {
+const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +55,7 @@ const Page  = () => {
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="off"
               required
-              name = "no-email-fill"
+              name="no-email-fill"
             />
           </div>
           <div className="input-group">
@@ -83,4 +83,4 @@ const Page  = () => {
   );
 };
 
-export default Page ;
+export default Page;

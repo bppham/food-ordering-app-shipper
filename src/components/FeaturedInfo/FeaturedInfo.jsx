@@ -1,15 +1,17 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import "./FeaturedInfo.css";
-import {getShipperOrders} from "../../api/order"
-
+import { getShipperOrders } from "../../api/order";
 
 const FeaturedInfo = () => {
   const [totalOrders, setTotalOrders] = useState(0);
   const [monthlyOrders, setMonthlyOrders] = useState(0);
+  const [shipperId, setShipperId] = useState(null);
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const shipperId = user?.id;
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    setShipperId(user.id);
+  }, []);
 
   useEffect(() => {
     if (shipperId) {
@@ -32,24 +34,14 @@ const FeaturedInfo = () => {
         <div className="featured-title">Tổng đơn hàng</div>
         <div className="featured-container">
           <span className="featured-number">{totalOrders}</span>
-          <span className="feartured-rate">
-            <p>11%</p>
-            {/* <img src={increase_icon} alt="" /> */}
-          </span>
         </div>
-        <span className="featured-sub">So với tháng 12</span>
       </div>
 
       <div className="featured-item">
-        <div className="featured-title">Số đơn hàng</div>
+        <div className="featured-title">Số đơn hàng trong tháng</div>
         <div className="featured-container">
           <span className="featured-number">{monthlyOrders}</span>
-          <span className="feartured-rate">
-            <p>20%</p>
-            {/* <img src={decrease_icon} alt="" /> */}
-          </span>
         </div>
-        <span className="featured-sub">So với tháng 12</span>
       </div>
     </div>
   );
