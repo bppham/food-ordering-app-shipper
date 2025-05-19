@@ -40,7 +40,7 @@ const DeliveredOrdersPage = () => {
 
   // Chuyển trang (cập nhật URL)
   const changePage = (newPage) => {
-    router.push(`/shipper/order/history?page=${newPage}`);
+    router.push(`/order/history?page=${newPage}`);
   };
 
   return (

@@ -10,7 +10,7 @@ const getAuthHeaders = () => {
 
 export const getAllChats = async () => {
   try {
-    const res = await axios.get(`${BASE_URL}/chat`, {
+    const res = await axios.get(`${BASE_URL}/chat/`, {
       headers: getAuthHeaders(),
       withCredentials: true,
     });
