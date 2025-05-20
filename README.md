@@ -1,5 +1,14 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## The Application – Food Delivery for Shippers
+
+This is a web application designed for shippers to manage and deliver food orders efficiently.
+
+It has some basic function: 
+- Authentication: Login, sign up, forget password.
+- Order Delivery: View and take delivery orders, real-time delivery status, integrated map view for navigation, chat with customers or store (restaurant).
+- Personal information: update personal details, change password.
+
 ## Getting Started
 
 First, run the development server:
@@ -29,8 +38,14 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Related Repositories
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+You can check out some related repositories below:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Server](https://github.com/NND24/food-ordering-server) - Backend server that powers the application
+- [Android (Shipper)](https://github.com/bppham/Android-Delivery-Food) - Android app for shippers to manage and deliver orders
+
+## Feedback & Contributions
+
+- Your feedback and contributions are always welcome!
+- Feel free to open an issue or submit a pull request if you'd like to improve the project.
