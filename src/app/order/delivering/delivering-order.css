@@ -3,13 +3,13 @@
   text-align: center;
 }
 
-.delivering-order h1{
+.delivering-order h1 {
   font-size: 30px;
   font-weight: bold;
   margin-bottom: 20px;
 }
 
-.delivering-order h2{
+.delivering-order h2 {
   font-size: 25px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -24,18 +24,18 @@
   transition: 0.3s;
 }
 
-.step-container .info{
+.step-container .info {
   display: flex;
   flex-direction: column;
   align-items: start;
   padding: 10px;
 }
 
-.step-container .info p{
+.step-container .info p {
   margin-bottom: 10px;
 }
 
-.step-container .info .action{
+.step-container .info .action {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -54,6 +54,17 @@
   opacity: 0.5;
 }
 
+.step-container .info-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.step-container.active .info-header .cancel-order{
+  cursor: pointer;
+}
+
 /* Nút bấm */
 button {
   padding: 10px 20px;
@@ -69,34 +80,34 @@ button:disabled {
   cursor: not-allowed;
 }
 
-button.confirm{
+button.confirm {
   background-color: #198754;
 }
 
-button.confirm:hover{
+button.confirm:hover {
   background-color: #299663;
 }
 
-button.watch-map{
-  background-color: #ffc107 ;
+button.watch-map {
+  background-color: #ffc107;
 }
 
-button.watch-map:hover{
-  background-color: #f8c630 ;
+button.watch-map:hover {
+  background-color: #f8c630;
 }
 
-button.detail-order{
-  background-color: #0d6efd ;
+button.detail-order {
+  background-color: #0d6efd;
 }
 
-button.detail-order:hover{
-  background-color: #2e7ef5 ;
+button.detail-order:hover {
+  background-color: #2e7ef5;
 }
 
-button.chat{
-  background-color: #ff8080 ;
+button.chat {
+  background-color: #ff8080;
 }
 
-button.chat:hover{
-  background-color: #f05e5e ;
+button.chat:hover {
+  background-color: #f05e5e;
 }

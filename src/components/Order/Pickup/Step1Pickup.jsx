@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "next/image";
+import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
 import { updateOrderStatus } from "../../../api/order";
 import { createChat, getAllChats } from "../../../api/chat";
@@ -8,12 +10,26 @@ const Step1Pickup = ({ order, status, onStatusUpdate, onShowDetail }) => {
   const router = useRouter();
 
   const handleConfirmPickup = async () => {
-    try {
-      await updateOrderStatus(order._id, "delivering");
-      onStatusUpdate();
-    } catch (error) {
-      console.error("Lỗi khi cập nhật trạng thái:", error);
-      alert("Không thể cập nhật trạng thái đơn hàng!");
+    const result = await Swal.fire({
+      title: "Bạn có chắc muốn nhận đơn?",
+      text: "Sau khi nhận, đơn sẽ chuyển sang trạng thái 'Đang giao'.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Xác nhận",
+      cancelButtonText: "Hủy",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await updateOrderStatus(order._id, "delivering");
+        onStatusUpdate();
+        Swal.fire("Thành công!", "Đơn hàng đang được giao.", "success");
+      } catch (error) {
+        console.error("Lỗi khi cập nhật trạng thái:", error);
+        Swal.fire("Lỗi", "Không thể cập nhật trạng thái đơn hàng!", "error");
+      }
     }
   };
 
@@ -31,6 +47,30 @@ const Step1Pickup = ({ order, status, onStatusUpdate, onShowDetail }) => {
     }
   };
 
+  const handleCancelOrder = async () => {
+    const result = await Swal.fire({
+      title: "Bạn có chắc muốn hủy đơn?",
+      text: "Thao tác này không thể hoàn tác!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Vâng, hủy đơn!",
+      cancelButtonText: "Không",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        await updateOrderStatus(order._id, "finished");
+        onStatusUpdate();
+        Swal.fire("Đã hủy!", "Đơn hàng đã được hủy.", "success");
+      } catch (error) {
+        console.error("Lỗi khi cập nhật trạng thái:", error);
+        Swal.fire("Lỗi", "Không thể cập nhật trạng thái đơn hàng!", "error");
+      }
+    }
+  };
+
   const handleWatchMap = () => {
     router.push("/order/delivering/see-route-store?orderId=" + order._id);
   };
@@ -38,7 +78,19 @@ const Step1Pickup = ({ order, status, onStatusUpdate, onShowDetail }) => {
   return (
     <div className={`step-container ${isActive ? "active" : "inactive"}`}>
       <div className="info">
-        <h2>Bước 1: Lấy đồ ăn tại nhà hàng</h2>
+        <div className="info-header">
+          <h2>Bước 1: Lấy đồ ăn tại nhà hàng</h2>
+          <Image
+            src="/assets/icons/close.png"
+            width={30}
+            height={30}
+            alt="Close Icon"
+            className="cancel-order"
+            disabled={isDisabled}
+            onClick={isDisabled ? undefined : handleCancelOrder}
+          />
+        </div>
+
         <p>
           <strong>Nhà hàng:</strong> {order.store.name}
         </p>

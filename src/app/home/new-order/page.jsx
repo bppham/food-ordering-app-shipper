@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import "./NewOrder.css";
-
+import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +13,7 @@ import DetailOrder from "../../../components/Order/DetailOrder";
 const NewOrder = () => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     fetchOrders();
@@ -50,8 +51,8 @@ const NewOrder = () => {
       if (result.isConfirmed) {
         try {
           await acceptOrder(orderId);
-          toast.success("Nhận đơn thành công!", { position: "top-right" });
-          fetchOrders(); // Load lại danh sách đơn hàng
+          Swal.fire("Đã nhận đơn!", "Đơn hàng đã được nhận thành công.", "success");
+          router.push("/order/delivering");
         } catch (error) {
           console.error("❌ Lỗi nhận đơn: ", error.response);
 
